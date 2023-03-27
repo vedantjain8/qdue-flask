@@ -1,0 +1,86 @@
+{% extends "layout_with_side_pannel.html" %}{% block
+HtmlbodyContentWithSidePannel %}
+
+<!-- profile picture -->
+<div class="media-middle">
+  <img
+    class="rounded-circle account-img mx-auto d-block"
+    src="https://api.dicebear.com/5.x/identicon/svg?seed={{ current_user.username }}"
+    alt="avatar"
+    height="240px"
+    width="240px"
+  />
+</div>
+
+<!-- username -->
+<form method="POST" action="">
+  {{ form.hidden_tag() }}
+  <fieldset class="form-group">
+    <legend class="border-bottom mb-4">Account Info</legend>
+    <div class="form-group">
+      {{ form.username.label(class="form-control-label") }} {% if
+      form.username.errors %} {{ form.username(class="form-control
+      form-control-lg is-invalid") }}
+      <div class="invalid-feedback">
+        {% for error in form.username.errors %}
+        <span>{{ error }}</span>
+        {% endfor %}
+      </div>
+      {% else %} {{ form.username(class="form-control form-control-lg") }} {%
+      endif %}
+    </div>
+    <br />
+  </fieldset>
+  <div class="form-group">
+    {{ form.submit(class="btn btn-outline-info", id="button1") }}
+  </div>
+</form>
+<br />
+<!-- api key -->
+<div class="api-key-container">
+  <p>
+    API Key: <code id="api-key">{{ api_key }}</code
+    ><button
+      style="margin-left: 30px"
+      class="btn btn-secondary btn-sm"
+      onclick="copyAPIKey()"
+    >
+      Copy
+    </button>
+  </p>
+</div>
+
+<script>
+  function copyAPIKey() {
+    const apiKeyElement = document.getElementById("api-key");
+    window.getSelection().selectAllChildren(apiKeyElement);
+    document.execCommand("Copy");
+  }
+</script>
+<!-- close api key -->
+
+<div class="form-group">
+  {{ deletePostsr.DeleteAllPosts(class="btn btn-outline-danger",
+  id="deletePostAllBtn") }}
+</div>
+
+<!-- delete all posts js script -->
+<script>
+  // Handle click event for deletePostAllBtn
+  document
+    .getElementById("deletePostAllBtn")
+    .addEventListener("click", function (e) {
+      if (confirm("Are you sure you want to delete all posts") == true) {
+        // Prevent default form submission
+        e.preventDefault();
+
+        // Submit form1 using AJAX
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/account-deleteAllposts");
+        xhr.send();
+      } else {
+        alert("No posts were deleted!");
+      }
+    });
+</script>
+{% endblock HtmlbodyContentWithSidePannel%}

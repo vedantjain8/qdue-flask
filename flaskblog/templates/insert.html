@@ -1,0 +1,210 @@
+{% extends "layout.html" %}{% block HtmlbodyContent %}
+<!-- custom css -->
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/style.css') }}"
+/>
+
+<div class="container-fluid" style="margin-top: 10px">
+  <form
+    action="/"
+    method="post"
+    onsubmit="return validateForm()"
+    name="InputForm"
+  >
+    <div class="mb-3">
+      <label for="title" class="form-label">TODO Title</label>
+      <input
+        type="text"
+        class="form-control"
+        name="title"
+        id="title"
+        aria-describedby="titleAria"
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="desc" class="form-label">TODO Description</label>
+      <textarea
+        type="text"
+        class="form-control"
+        aria-label="With textarea"
+        name="desc"
+        id="desc"
+      ></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Add</button>
+  </form>
+  <br />
+
+  <!-- table -->
+  {% if posts|length==0 %}
+  <p class="text-center">There are no records</p>
+  <img
+    class="img-fluid rounded mx-auto d-block"
+    src="https://media.tenor.com/qW6rH97R6eEAAAAC/crazy-empty.gif"
+    alt="There is nothing to show"
+  />
+  <!-- else -->
+  {% else %}
+  <!-- pinned posts -->
+  <div id="pinnedDIV">
+    <h1 id="pinnedpostTitle" class="text-center d-none"><u>Pinned Posts</u></h1>
+    <div class="row row-cols-4 row-fluid" id="PinnedRow">
+      {% for post in posts if post.pinned == 1%}
+      <div class="col" id="{{ post.id }}">
+        <div class="card">
+          <div class="card-header">
+            <span>{{ post.title }}</span>
+            <span>
+              <div class="hoverable-element" style="float: right">
+                &nbsp;
+                <a
+                  id="hidden-pinBtn"
+                  class="text-end"
+                  href="/pin/{{ post.id }}"
+                  method="post"
+                >
+                  <span
+                    class="material-symbols-outlined"
+                    style="
+                      font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0,
+                        'opsz' 48;
+                    "
+                  >
+                    push_pin
+                  </span>
+                </a>
+              </div>
+            </span>
+          </div>
+          <div class="card-body">
+            <p class="card-text">{{ post.description }}</p>
+            <a href="update/{{ post.id }}" class="btn btn-primary">Edit</a>
+          </div>
+          <div class="card-footer text-muted" name="date_created">
+            <span>{{ post.date_created }}</span>
+            <a
+              id="hidden-pinBtn"
+              class="text-end"
+              href="delete/{{ post.id }}"
+              method="post"
+            >
+              <span
+                style="float: right; padding-left: 40px"
+                class="material-symbols-outlined"
+                style="
+                  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0,
+                    'opsz' 48;
+                "
+              >
+                delete
+              </span></a
+            >
+          </div>
+        </div>
+        <br />
+      </div>
+      {% endfor %}
+    </div>
+    <hr class="border border-primary" />
+  </div>
+  <br />
+
+  <!-- unpinned posts -->
+  <div class="row row-cols-4 row-fluid">
+    {% for post in posts if post.pinned == 0%}
+    <div class="col">
+      <div class="card" style="background-color: {{ post.backcolor }};">
+        <div class="card-header">
+          <span>{{ post.title }}</span>
+          <span>
+            <div class="hoverable-element" style="float: right">
+              &nbsp;
+              <a
+                id="hidden-pinBtn"
+                class="hidden-button text-end"
+                href="/pin/{{ post.id }}"
+                method="post"
+              >
+                <span
+                  class="hidden-button material-symbols-outlined"
+                  style="
+                    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0,
+                      'opsz' 48;
+                  "
+                >
+                  push_pin
+                </span>
+              </a>
+            </div>
+          </span>
+        </div>
+        <div class="card-body">
+          <p class="card-text">{{ post.description }}</p>
+          <a href="update/{{ post.id }}" class="btn btn-primary">Edit</a>
+        </div>
+        <div class="card-footer text-muted" name="date_created">
+          <span>{{ post.date_created }}</span>
+          <a
+            id="hidden-pinBtn"
+            class="text-end"
+            href="delete/{{ post.id }}"
+            method="post"
+          >
+            <span
+              style="float: right; padding-left: 40px"
+              class="material-symbols-outlined"
+              style="
+                font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0,
+                  'opsz' 48;
+              "
+            >
+              delete
+            </span></a
+          >
+        </div>
+      </div>
+      <br />
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+</div>
+
+<script>
+  function validateForm() {
+    let title = document.forms["InputForm"]["title"].value;
+    let description = document.forms["InputForm"]["desc"].value;
+    if (title == "") {
+      alert("Title must be filled out");
+      return false;
+    }
+    if (description == "") {
+      alert("Description must be filled out");
+      return false;
+    }
+    if (title.length > 200) {
+      alert("Title must be shorter then 200 characters");
+      return false;
+    }
+    if (description.length > 500) {
+      alert("Title must be shorter then 500 characters");
+      return false;
+    }
+  }
+</script>
+
+<script type="text/javascript">
+  var parentDiv = document.getElementById("PinnedRow");
+  var childDiv = document.getElementsByClassName("col")[0];
+  var pinnedDIV = document.getElementById("pinnedDIV");
+  var pinnedpostTitle = document.getElementById("pinnedpostTitle");
+  if (parentDiv.contains(childDiv)) {
+    pinnedDIV.classList.toggle("d-block");
+    pinnedpostTitle.classList.toggle("d-none");
+  } else {
+    pinnedDIV.classList.toggle("d-none");
+  }
+</script>
+{% endblock HtmlbodyContent%}

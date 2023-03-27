@@ -1,0 +1,6 @@
+__pycache__
+temp.*
+venv
+record.log
+instance
+flaskblog/ngrokRun.py

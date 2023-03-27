@@ -1,0 +1,62 @@
+{% extends "layout_with_side_pannel.html" %}{% block HtmlbodyContentWithSidePannel %}
+<div class="container-fluid" style="margin-top: 10px">
+  <form action="/update/{{ post.id }}" method="post">
+    <div class="mb-3">
+      <label for="title" class="form-label">TODO Title</label>
+      <input
+        type="text"
+        class="form-control"
+        name="title"
+        id="title"
+        value="{{ post.title }}"
+        aria-describedby="titleAria"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="desc" class="form-label">TODO Description</label>
+      <textarea
+        type="text"
+        class="form-control"
+        aria-label="With textarea"
+        name="desc"
+        id="desc"
+      >{{ post.description }}</textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+
+  <!-- color picker -->
+  <input id="colorColor" type="color" value="{{ post.backcolor }}" />
+  <script>
+    const colorInput = document.getElementById("colorColor");
+    colorInput.addEventListener("change", sendColorToServer);
+    const opacity = 0.9;
+    
+    function sendColorToServer() {
+      const color = colorInput.value;
+      fetch("/update-color/{{ post.id }}", {
+        method: "POST",
+        body: JSON.stringify({ color: color }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((res) => {
+          document.body.style.background = `rgba(${toRGB(colorInput.value).slice(4, -1)}, ${opacity})`;
+          consol.log(`rgba(${toRGB(colorInput.value).slice(4, -1)}, ${1})`);
+          // handle the response here
+        })
+        .catch((err) => {
+          // handle the error here
+        });
+      }
+      
+      const toRGB = (color) => {
+        const { style } = new Option();
+        style.color = color;
+        return style.color;
+      };
+      document.body.style.background = `rgba(${toRGB(colorInput.value).slice(4, -1)}, ${opacity})`;
+  </script>
+</div>
+{% endblock HtmlbodyContentWithSidePannel%}

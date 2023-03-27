@@ -1,0 +1,118 @@
+{% extends 'layout.html' %} {% block HtmlbodyContent %}
+
+<div class="table-responsive">
+  <table class="table container table-hover table-fixed">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Username</th>
+        <th class="text-center" scope="col">Delete User</th>
+        <th class="text-center" scope="col">Admin</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in users %}
+      <tr>
+        <th scope="row" style="width: 8%">{{ user.id }}</th>
+        <td>{{ user.username }}</td>
+        <td class="position-relative" style="width: 8%">
+          <a
+            id="deleteUserBTN-{{ user.id }}"
+            class="btn btn-danger btn-sm position-absolute top-50 start-50 translate-middle"
+            style="margin-right: 10px"
+            href="/admin"
+            >Delete</a
+          >
+        </td>
+        <td class="position-relative" style="width: 8%">
+          <input
+            class="form-check-input mt-0 position-absolute top-50 start-50 translate-middle"
+            type="checkbox"
+            value=""
+            id="myCheckbox-{{ user.id }}"
+            aria-label="Checkbox for following text input"
+            {%
+            if
+            user.admin
+            %}
+            checked
+            {%
+            endif
+            %}
+          />
+        </td>
+      </tr>
+
+      <!-- delete user script -->
+      <script>
+        // Get the checkbox element
+        const deleteUserBTN{{ user.id }} = document.getElementById("deleteUserBTN-{{ user.id }}");
+        // Add an event listener for the 'change' event
+        deleteUserBTN{{ user.id }}.addEventListener("click", () => {
+
+          // Send a post request to the server
+          fetch("/admin/deleteUser", {
+            method: "POST",
+            body: JSON.stringify({
+                value: true,
+                username: "{{ user.username }}",
+              }),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
+          .then((response) => response.json())
+          .then((data) => {
+                // Do something with the response data
+              });
+            });
+      </script>
+
+      <!-- checkbox admin script -->
+      <script>
+        // Get the checkbox element
+        const checkbox{{ user.id }} = document.getElementById("myCheckbox-{{ user.id }}");
+        // Add an event listener for the 'change' event
+        checkbox{{ user.id }}.addEventListener("change", (event) => {
+          // Check if the checkbox is checked
+          if (event.target.checked) {
+            // Send a post request to the server
+            fetch("/admin/changeAdmin", {
+              method: "POST",
+              body: JSON.stringify({
+                value: true,
+                username: "{{ user.username }}",
+              }),
+              headers: {
+                "Content-Type": "application/json",
+              },
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                // Do something with the response data
+              });
+          } else {
+            // Send a post request to the server
+            fetch("/admin/changeAdmin", {
+              method: "POST",
+              body: JSON.stringify({
+                value: false,
+                username: "{{ user.username }}",
+              }),
+              headers: {
+                "Content-Type": "application/json",
+              },
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                // Do something with the response data
+              });
+          }
+        });
+      </script>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock HtmlbodyContent %}
