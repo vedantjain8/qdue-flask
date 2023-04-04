@@ -2,7 +2,6 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
-from prometheus_flask_exporter import PrometheusMetrics
 
 # from flaskblog.ngrokRun import run_with_ngrok
 
@@ -41,7 +40,3 @@ app.register_blueprint(errors, url_prefix='/QDueFlask')
 app.register_blueprint(apis, url_prefix='/QDueFlask/api')
 app.register_blueprint(admin, url_prefix='/QDueFlask/admin')
 app.register_blueprint(main, url_prefix='/QDueFlask')
-
-# # Configure Prometheus metrics
-# metrics = PrometheusMetrics(app)
-# metrics.info("app_info", "Prometheus export", version="1.0.0")
