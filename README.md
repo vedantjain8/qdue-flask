@@ -4,6 +4,9 @@
 - [QDue-flask](#qdue-flask)
   - [Screenshot](#screenshot)
   - [Installation](#installation)
+    - [Direct Run - Development Server](#direct-run---development-server)
+    - [Run - Production Server](#run---production-server)
+    - [Build Docker image](#build-docker-image)
 
 
 QDue-Flask is a todo application built using the Flask web framework in Python. The application features a RESTful API system that allows users to interact with the app programmatically. The API system includes endpoints for creating, updating, and deleting todo items, as well as for retrieving all the todo items for a specific user.
@@ -27,4 +30,13 @@ Overall, QDue-Flask is a simple and effective todo app that provides users with 
 1. `git clone https://github.com/vedantjain8/QDue-Flask.git`
 2. `cd QDue-Flask`
 3. `pip install -r requirements.txt`
+
+### Direct Run - Development Server
 4. `python3 -m main.py`
+
+### Run - Production Server
+4. `gunicorn main:app -b 0.0.0.0:80 --workers 2`
+
+### Build Docker image
+4. `docker build -t qdueflask .`
+5. `docker run -d --name=qdueflasktest -e GUNICORN_WORKERS=2 -p 7001:80 --restart=unless-stopped qdueflask`
