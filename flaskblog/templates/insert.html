@@ -7,7 +7,7 @@
 
 <div class="container-fluid" style="margin-top: 10px">
   <form
-    action="/"
+    action="/QDueFlask/"
     method="post"
     onsubmit="return validateForm()"
     name="InputForm"
@@ -53,7 +53,7 @@
     <div class="row row-cols-4 row-fluid" id="PinnedRow">
       {% for post in posts if post.pinned == 1%}
       <div class="col" id="{{ post.id }}">
-        <div class="card">
+        <div class="card" style="background-color: {{ post.backcolor }};">
           <div class="card-header">
             <span>{{ post.title }}</span>
             <span>
@@ -62,7 +62,7 @@
                 <a
                   id="hidden-pinBtn"
                   class="text-end"
-                  href="/pin/{{ post.id }}"
+                  href="pin/{{ post.id }}"
                   method="post"
                 >
                   <span
@@ -124,7 +124,7 @@
               <a
                 id="hidden-pinBtn"
                 class="hidden-button text-end"
-                href="/pin/{{ post.id }}"
+                href="pin/{{ post.id }}"
                 method="post"
               >
                 <span

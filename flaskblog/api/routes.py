@@ -1,6 +1,3 @@
-# Todo: api key argument
-# https://todo-flask-production.up.railway.app/api/?api=apikey
-
 from flask import Blueprint, request
 from flaskblog.models import Todo, User
 
