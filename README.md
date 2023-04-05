@@ -1,5 +1,5 @@
 # QDue-flask
-![language count](https://img.shields.io/github/languages/count/vedantjain8/qdue-flask?style=for-the-badge) ![Total line of code](https://img.shields.io/tokei/lines/github/vedantjain8/qdue-flask?style=for-the-badge) ![Stars](https://img.shields.io/github/stars/vedantjain8/qdue-flask?style=for-the-badge)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/vedantjain8/qdue-flask/docker-publish.yml?style=for-the-badge) ![language count](https://img.shields.io/github/languages/count/vedantjain8/qdue-flask?style=for-the-badge) ![Total line of code](https://img.shields.io/tokei/lines/github/vedantjain8/qdue-flask?style=for-the-badge) ![Stars](https://img.shields.io/github/stars/vedantjain8/qdue-flask?style=for-the-badge)
 
 - [QDue-flask](#qdue-flask)
   - [Screenshot](#screenshot)
@@ -7,6 +7,7 @@
     - [Direct Run - Development Server](#direct-run---development-server)
     - [Run - Production Server](#run---production-server)
     - [Build Docker image](#build-docker-image)
+  - [TODO](#todo)
 
 
 QDue-Flask is a todo application built using the Flask web framework in Python. The application features a RESTful API system that allows users to interact with the app programmatically. The API system includes endpoints for creating, updating, and deleting todo items, as well as for retrieving all the todo items for a specific user.
@@ -39,4 +40,7 @@ Overall, QDue-Flask is a simple and effective todo app that provides users with 
 
 ### Build Docker image
 4. `docker build -t qdueflask .`
-5. `docker run -d --name=qdueflasktest -e GUNICORN_WORKERS=2 -p 7001:80 --restart=unless-stopped qdueflask`
+5. `docker run -d --name=qdueflasktest -e SECRET_KEY=my_secret_key -e GUNICORN_WORKERS=2 -p 7001:80 --restart=unless-stopped qdueflask`
+
+## TODO
+[ ] sqlite to MongoDB or PostgreSQL

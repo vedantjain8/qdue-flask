@@ -2,6 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
+import os
 
 # from flaskblog.ngrokRun import run_with_ngrok
 
@@ -13,7 +14,7 @@ from flask_login import LoginManager
 # ========================== LOGGING ====================
 
 app = Flask(__name__)
-app.config["SECRET_KEY"] = "YOUR_SECRET_KEY_HERE"
+app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "default_secret_key")
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///todo.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
