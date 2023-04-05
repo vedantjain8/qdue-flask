@@ -41,3 +41,6 @@ app.register_blueprint(errors, url_prefix='/QDueFlask')
 app.register_blueprint(apis, url_prefix='/QDueFlask/api')
 app.register_blueprint(admin, url_prefix='/QDueFlask/admin')
 app.register_blueprint(main, url_prefix='/QDueFlask')
+
+app.app_context().push()
+db.create_all()

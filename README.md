@@ -3,10 +3,13 @@
 
 - [QDue-flask](#qdue-flask)
   - [Screenshot](#screenshot)
+  - [Supported Architectures](#supported-architectures)
   - [Installation](#installation)
     - [Direct Run - Development Server](#direct-run---development-server)
     - [Run - Production Server](#run---production-server)
     - [Build Docker image](#build-docker-image)
+    - [Run from pre-build docker image](#run-from-pre-build-docker-image)
+      - [Docker Parameters](#docker-parameters)
   - [TODO](#todo)
 
 
@@ -27,6 +30,12 @@ Overall, QDue-Flask is a simple and effective todo app that provides users with 
 | 3.  | ![Screen shot 3](github/Screenshot3.png)  |
 | 4.  | ![Screen shot 4](github/Screenshot4.png)  |
 
+## Supported Architectures
+| Architecture |	Available |
+|---|---|
+|linux/amd64 |	<p style="text-align: center;">✅</p>|
+|linux/arm64|	<p style="text-align: center;">✅</p>|
+
 ## Installation
 1. `git clone https://github.com/vedantjain8/QDue-Flask.git`
 2. `cd QDue-Flask`
@@ -40,7 +49,20 @@ Overall, QDue-Flask is a simple and effective todo app that provides users with 
 
 ### Build Docker image
 4. `docker build -t qdueflask .`
-5. `docker run -d --name=qdueflasktest -e SECRET_KEY=my_secret_key -e GUNICORN_WORKERS=2 -p 7001:80 --restart=unless-stopped qdueflask`
+5. `docker run -d --name=qdueflask -e SECRET_KEY="my_secret_key" -e GUNICORN_WORKERS=2 -p 7001:80 --restart=unless-stopped qdueflask`
+> [Click here to see the available docker parameters](#docker-parameters)
+
+### Run from pre-build docker image
+1. `docker run -d --name=qdueflask -e SECRET_KEY="my_secret_key" -e GUNICORN_WORKERS=2 -p 7001:80 --restart=unless-stopped ghcr.io/vedantjain8/due-flask:latest`
+> [Click here to see the available docker parameters](#docker-parameters)
+
+#### Docker Parameters
+| Argument  | Description  |
+|---|---|
+| `-e SECRET_KEY="my_secret_key"`  | Change "my_secret_key" to random string. Default is set to `default_secret_key` |
+| `-e GUNICORN_WORKERS=2` | Defaults to `4` |
+| `-p 7001:80` | WebUI |
+
 
 ## TODO
 [ ] sqlite to MongoDB or PostgreSQL
