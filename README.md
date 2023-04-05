@@ -53,7 +53,7 @@ Overall, QDue-Flask is a simple and effective todo app that provides users with 
 > [Click here to see the available docker parameters](#docker-parameters)
 
 ### Run from pre-build docker image
-1. `docker run -d --name=qdueflask -e SECRET_KEY="my_secret_key" -e GUNICORN_WORKERS=2 -p 7001:80 --restart=unless-stopped ghcr.io/vedantjain8/due-flask:latest`
+1. `docker run -d --name=qdueflask -e SECRET_KEY="my_secret_key" -e GUNICORN_WORKERS=2 -p 7001:80 --restart=unless-stopped ghcr.io/vedantjain8/qdue-flask:latest`
 > [Click here to see the available docker parameters](#docker-parameters)
 
 #### Docker Parameters
