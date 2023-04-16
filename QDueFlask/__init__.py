@@ -45,7 +45,6 @@ from QDueFlask.errors.handlers import errors
 from QDueFlask.api.routes import apis
 from QDueFlask.admin.routes import admin
 from QDueFlask.main.routes import main
-from QDueFlask.main.routes import routeThepage
 
 app.register_blueprint(users, url_prefix='/QDueFlask')
 app.register_blueprint(posts, url_prefix='/QDueFlask')
@@ -53,7 +52,6 @@ app.register_blueprint(errors, url_prefix='/QDueFlask')
 app.register_blueprint(apis, url_prefix='/QDueFlask/api')
 app.register_blueprint(admin, url_prefix='/QDueFlask/admin')
 app.register_blueprint(main, url_prefix='/QDueFlask')
-app.register_blueprint(routeThepage)
 
 app.app_context().push()
 db.create_all()
