@@ -7,7 +7,7 @@ services:
             - POSTGRES_USER=flasktodoAdmin
             - POSTGRES_PASSWORD=flasktodoAdmin
         volumes:
-            - qdueflask-db-data:/var/lib/postgresql/data
+            - 'qdueflask-db-data:/var/lib/postgresql/data'
         container_name: qdueflask-db
         restart: unless-stopped
     
@@ -24,3 +24,5 @@ services:
             - GUNICORN_WORKERS=2
         container_name: qdueflask-app
         restart: unless-stopped
+volumes:
+  qdueflask-db-data:
