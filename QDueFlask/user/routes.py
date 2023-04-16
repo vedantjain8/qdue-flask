@@ -1,7 +1,7 @@
 from flask import render_template,request,redirect,flash, url_for, Blueprint, Response
-from flaskblog import app, db, bcrypt
-from flaskblog.models import User, Todo
-from flaskblog.user.forms import RegistrationForm, LoginForm, UpdateAccountForm, DeleteAllPostsForm
+from QDueFlask import app, db, bcrypt
+from QDueFlask.models import User, Todo
+from QDueFlask.user.forms import RegistrationForm, LoginForm, UpdateAccountForm, DeleteAllPostsForm
 from flask_login import login_user, current_user, logout_user, login_required
 
 users = Blueprint("users", __name__)

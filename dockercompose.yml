@@ -1,0 +1,26 @@
+version: '3.9'
+services:
+    db:
+        image: postgres
+        environment:
+            - POSTGRES_DB=flasktodoAdmin
+            - POSTGRES_USER=flasktodoAdmin
+            - POSTGRES_PASSWORD=flasktodoAdmin
+        volumes:
+            - qdueflask-db-data:/var/lib/postgresql/data
+        container_name: qdueflask-db
+        restart: unless-stopped
+    
+    QDueFlask-app:
+        image: qdueflask
+        ports:
+            - '7001:80'
+        environment:
+            - db_host=db
+            - db_database=flasktodoAdmin
+            - db_username=flasktodoAdmin
+            - db_password=flasktodoAdmin
+            - SECRET_KEY=my_secret_key
+            - GUNICORN_WORKERS=2
+        container_name: qdueflask-app
+        restart: unless-stopped

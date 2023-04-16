@@ -1,6 +1,6 @@
 from flask import render_template,request,redirect, url_for,Blueprint, abort
-from flaskblog import db
-from flaskblog.models import Todo
+from QDueFlask import db
+from QDueFlask.models import Todo
 from flask_login import current_user, login_required
 
 from datetime import datetime

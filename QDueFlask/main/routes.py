@@ -1,6 +1,10 @@
-from flask import render_template, Blueprint
+from flask import render_template, Blueprint, redirect, url_for
 
 main = Blueprint("main", __name__)
+
+@main.route('/')
+def routeThepage():
+    return redirect(url_for("posts.insert"))
 
 @main.route('/about')
 def about():

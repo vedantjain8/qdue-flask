@@ -1,5 +1,5 @@
 from flask import Blueprint, request
-from flaskblog.models import Todo, User
+from QDueFlask.models import Todo, User
 
 apis = Blueprint("apis", __name__, url_prefix="/api")
 

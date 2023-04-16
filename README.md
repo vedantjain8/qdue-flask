@@ -9,8 +9,13 @@
     - [Run - Production Server](#run---production-server)
     - [Build Docker image](#build-docker-image)
     - [Run from pre-build docker image](#run-from-pre-build-docker-image)
-      - [Docker Parameters](#docker-parameters)
-  - [TODO](#todo)
+    - [Deploy with docker compose file](#deploy-with-docker-compose-file)
+    - [Run with Postgresql databse](#run-with-postgresql-databse)
+      - [Example:](#example)
+  - [Configuration](#configuration)
+    - [Set a admin user in Postgresql](#set-a-admin-user-in-postgresql)
+  - [Docker Parameters](#docker-parameters)
+  - [TODO list](#todo-list)
 
 
 QDue-Flask is a todo application built using the Flask web framework in Python. The application features a RESTful API system that allows users to interact with the app programmatically. The API system includes endpoints for creating, updating, and deleting todo items, as well as for retrieving all the todo items for a specific user.
@@ -43,6 +48,7 @@ Overall, QDue-Flask is a simple and effective todo app that provides users with 
 
 ### Direct Run - Development Server
 4. `python3 -m main.py`
+> Set `app.debug=True` in [main.py](https://github.com/vedantjain8/qdue-flask/blob/main/main.py) file
 
 ### Run - Production Server
 4. `gunicorn main:app -b 0.0.0.0:80 --workers 2`
@@ -56,13 +62,43 @@ Overall, QDue-Flask is a simple and effective todo app that provides users with 
 1. `docker run -d --name=qdueflask -e SECRET_KEY="my_secret_key" -e GUNICORN_WORKERS=2 -p 7001:80 --restart=unless-stopped ghcr.io/vedantjain8/qdue-flask:latest`
 > [Click here to see the available docker parameters](#docker-parameters)
 
-#### Docker Parameters
-| Argument  | Description  |
-|---|---|
-| `-e SECRET_KEY="my_secret_key"`  | Change "my_secret_key" to random string. Default is set to `default_secret_key` |
-| `-e GUNICORN_WORKERS=2` | Defaults to `4` |
-| `-p 7001:80` | WebUI |
+### Deploy with docker compose file
+1. Download this file > [dockercompose.yml](https://github.com/vedantjain8/qdue-flask/blob/main/dockercompose.yml)
+2. Run `docker compose up`
 
+### Run with Postgresql databse
+1. `docker run --name=qdueflask-db --network=host -v qdueflask-db-data:/var/lib/postgresql/data -e POSTGRES_PASSWORD=<db password> -e POSTGRES_USER=<db username> -e POSTGRES_DB=<db database> -d postgres`
+2. `docker run -d --name=qdueflask -e db_username=<db username> -e db_password=<db password> -e db_host=<db localhost> -e db_port=<db port> -e db_database=<db database> -e SECRET_KEY="my_secret_key" -e GUNICORN_WORKERS=2 -p 7001:80 --restart=unless-stopped ghcr.io/vedantjain8/qdue-flask:latest`
 
-## TODO
-[ ] sqlite to MongoDB or PostgreSQL
+#### Example: 
+```
+sudo docker run --name=qdueflask-db --network=host -v qdueflask-db-data:/var/lib/postgresql/data -e POSTGRES_PASSWORD=flasktodoAdmin -e POSTGRES_USER=flasktodoAdmin -e POSTGRES_DB=flasktodoAdmin -d postgres
+
+sudo docker run -d --name=qdueflask-app -e db_username=flasktodoAdmin -e db_password=flasktodoAdmin -e db_host=192.168.29.8 -e db_database=flasktodoAdmin -e SECRET_KEY="my_secret_key" -e GUNICORN_WORKERS=2 -p 7001:80 --restart=unless-stopped ghcr.io/vedantjain8/qdue-flask:latest
+```
+
+## Configuration
+
+### Set a admin user in Postgresql
+`sudo docker exec -it qdueflask-db psql -U <db_username>`
+`update "user" set admin=true where username="admin";`
+
+## Docker Parameters
+| Argument  | Description  | Default Value |
+|---|---|---|
+| `-e SECRET_KEY="my_secret_key"`  | Change "my_secret_key" to random string | `default_secret_key` |
+| `-e db_username` | (Optional) Database username |  |
+| `-e db_password` | (Optional) Database password | |
+| `-e db_host` | (Optional) Database ip address or hostname | <center>`127.0.0.1`</center> |
+| `-e db_port` | (Optional) Database port | |
+| `-e db_database` | (Optional) Database name | |
+| `-e GUNICORN_WORKERS=2` | The number of worker processes. This number should generally be between 2-4 workers per core in the server | <center>`4`</center> |
+| `-p 7001:80` | WebUI |  |
+
+## TODO list
+[x] sqlite to MongoDB or PostgreSQL 
+[x] Point the root to app path
+[ ] password change
+[ ] Qdue image built with print statement to check
+[ ] Add validation for everything
+[ ] Add privacy so that no one can see my notes

@@ -1,6 +1,6 @@
 from flask import Blueprint,render_template, abort, request, jsonify, url_for, redirect
-from flaskblog.models import User
-from flaskblog import db
+from QDueFlask.models import User
+from QDueFlask import db
 from flask_login import  login_required, current_user
 
 admin = Blueprint("admin", __name__, url_prefix="/admin")

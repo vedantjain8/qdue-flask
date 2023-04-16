@@ -3,4 +3,4 @@ temp.*
 venv
 record.log
 instance
-flaskblog/ngrokRun.py
+QDueFlask/ngrokRun.py

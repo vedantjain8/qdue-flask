@@ -1,4 +1,4 @@
-from flaskblog import app
+from QDueFlask import app
 
 if __name__=="__main__":
     # app.debug=True
