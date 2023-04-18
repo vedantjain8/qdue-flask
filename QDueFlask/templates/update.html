@@ -1,6 +1,6 @@
 {% extends "layout_with_side_pannel.html" %}{% block HtmlbodyContentWithSidePannel %}
 <div class="container-fluid" style="margin-top: 10px">
-  <form action="update/{{ post.id }}" method="post">
+  <form action="{{ post.id }}" method="post">
     <div class="mb-3">
       <label for="title" class="form-label">TODO Title</label>
       <input

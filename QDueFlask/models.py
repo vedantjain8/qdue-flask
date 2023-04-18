@@ -1,5 +1,5 @@
 from datetime import datetime
-from QDueFlask import db, login_manager
+from QDueFlask import db, login_manager, customTZ
 from flask_login import UserMixin
 import uuid
 
@@ -11,7 +11,8 @@ class Todo(db.Model):
     id = db.Column(db.Integer, primary_key= True)
     title = db.Column(db.String(200), nullable = False)
     description = db.Column(db.String(500), nullable= False)
-    date_created = db.Column(db.String(22), default= datetime.utcnow().replace(microsecond=0).strftime('%Y-%m-%d %I:%M:%S %p'))
+    date_created = db.Column(db.String(22), default= datetime.now(customTZ).strftime('%Y-%m-%d %I:%M:%S %p'))
+    date_updated = db.Column(db.String(22), default= datetime.now(customTZ).strftime('%Y-%m-%d %I:%M:%S %p'))
     pinned = db.Column(db.Integer(),nullable= False, default= 0)
     backcolor = db.Column(db.String(),nullable= False, default= "#ffffff")
     user_id = db.Column(db.Integer(), db.ForeignKey('user.id'), nullable = False)

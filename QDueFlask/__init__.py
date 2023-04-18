@@ -2,7 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
-import os
+import os, pytz
 
 # from QDueFlask.ngrokRun import run_with_ngrok
 
@@ -24,10 +24,16 @@ if os.environ.get("db_username") and os.environ.get("db_password") and os.enviro
 else: 
     dbPath= "sqlite:///todo.db"
 
-app = Flask(__name__)
+if os.environ.get("TZ"):
+    customTZ = pytz.timezone(os.environ.get("TZ"))
+else:
+    customTZ = pytz.timezone('UTC')
+
+app = Flask(__name__,static_url_path='/QDueFlask', static_folder='static')
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "default_secret_key")
 app.config['SQLALCHEMY_DATABASE_URI'] = dbPath
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['TIMEZONE'] = customTZ
 
 # run_with_ngrok(app)
 

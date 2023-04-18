@@ -92,6 +92,7 @@ sudo docker run -d --name=qdueflask-app -e db_username=flasktodoAdmin -e db_pass
 | `-e db_host` | (Optional) Database ip address or hostname | <center>`127.0.0.1`</center> |
 | `-e db_port` | (Optional) Database port | |
 | `-e db_database` | (Optional) Database name | |
+| `-e TZ ` | Time zone name like  | <center>UTC time zone</center> |
 | `-e GUNICORN_WORKERS=2` | The number of worker processes. This number should generally be between 2-4 workers per core in the server | <center>`4`</center> |
 | `-p 7001:80` | WebUI |  |
 
@@ -100,6 +101,7 @@ sudo docker run -d --name=qdueflask-app -e db_username=flasktodoAdmin -e db_pass
 -[x] Point the root to app path
 -[ ] password change
 -[ ] add logging
+-[ ] export todo feature
 -[ ] reposition the select color button
 -[ ] Qdue image built with print statement to check
 -[ ] Add validation for everything

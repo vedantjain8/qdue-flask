@@ -1,5 +1,5 @@
 from flask import render_template,request,redirect, url_for,Blueprint, abort
-from QDueFlask import db
+from QDueFlask import db, customTZ
 from QDueFlask.models import Todo
 from flask_login import current_user, login_required
 
@@ -18,7 +18,7 @@ def insert():
         db.session.add(todo)
         db.session.commit()
         return redirect(url_for("posts.insert"))
-    return render_template("insert.html", posts = Todo.query.filter_by(user_id=current_user.id).all())
+    return render_template("insert.html", posts = Todo.query.filter_by(user_id=current_user.id).order_by(Todo.date_created).all())
 
 @posts.route("/delete/<int:id>")
 @login_required
@@ -38,7 +38,7 @@ def update(id):
             todo = Todo.query.filter_by(id=id).first()
             todo.title = str(request.form["title"]).strip()
             todo.description = str(request.form["desc"]).replace("  ", " ")
-            todo.date_created = datetime.utcnow().replace(microsecond=0)
+            todo.date_updated = datetime.now(customTZ).strftime('%Y-%m-%d %I:%M:%S %p')
             db.session.add(todo)
             db.session.commit()
             return redirect(url_for("posts.insert")) #here home is def of home route

@@ -16,7 +16,6 @@ RUN pip install gunicorn
 # Environment variable
 ENV GUNICORN_WORKERS=4
 ENV FLASK_APP=main.py
-ENV FLASK_ENV=production
 
 # Expose the port for the app to run on
 EXPOSE 80
