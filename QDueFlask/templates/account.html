@@ -18,7 +18,8 @@ HtmlbodyContentWithSidePannel %}
   <fieldset class="form-group">
     <legend class="border-bottom mb-4">Account Info</legend>
     <div class="form-group">
-      {{ form.username.label(class="form-control-label") }} {% if
+      {{ form.username.label(class="form-control-label") }} 
+      {% if
       form.username.errors %} {{ form.username(class="form-control
       form-control-lg is-invalid") }}
       <div class="invalid-feedback">
@@ -36,6 +37,63 @@ HtmlbodyContentWithSidePannel %}
   </div>
 </form>
 <br />
+
+<!-- reset password -->
+<form method="POST" action="">
+  {{ passwordForm.hidden_tag() }}
+  <fieldset class="form-group">
+    <div class="form-group">
+      {{ passwordForm.CurrentPassword.label(class="form-control-label") }} {% if
+        passwordForm.CurrentPassword.errors %} {{ passwordForm.CurrentPassword(class="form-control
+      form-control-lg is-invalid") }}
+      <div class="invalid-feedback">
+        {% for error in passwordForm.CurrentPassword.errors %}
+        <span>{{ error }}</span>
+        {% endfor %}
+      </div>
+      {% else %} {{ passwordForm.CurrentPassword(class="form-control form-control-lg") }} {%
+      endif %}
+    </div>
+    <br />
+
+    <div class="form-group">
+      {{ passwordForm.NewPassword.label(class="form-control-label") }} 
+      {% if passwordForm.NewPassword.errors %} 
+          {{ passwordForm.NewPassword(class="form-control form-control-lg is-invalid") }}
+          <div class="invalid-feedback">
+            {% for error in passwordForm.NewPassword.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+          </div>
+      {% else %}
+       {{ passwordForm.NewPassword(class="form-control form-control-lg") }} 
+      
+      {% endif %}
+    </div>
+    <br />
+    
+    <div class="form-group">
+      {{ passwordForm.ConfirmPassword.label(class="form-control-label") }} 
+      {% if passwordForm.ConfirmPassword.errors %} 
+        {{ passwordForm.ConfirmPassword(class="form-control form-control-lg is-invalid") }}
+        <div class="invalid-feedback">
+          {% for error in passwordForm.ConfirmPassword.errors %}
+            <span>{{ error }}</span>
+          {% endfor %}
+        </div>
+      {% else %}
+        {{ passwordForm.ConfirmPassword(class="form-control form-control-lg") }} 
+      {% endif %}
+    </div>
+    <br />
+
+  </fieldset>
+  <div class="form-group">
+    {{ passwordForm.PasswordSubmit(class="btn btn-outline-info", id="button1") }}
+  </div>
+</form>
+<br />
+
 <!-- api key -->
 <div class="api-key-container">
   <p>
@@ -76,7 +134,7 @@ HtmlbodyContentWithSidePannel %}
 
         // Submit form1 using AJAX
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "/account-deleteAllposts");
+        xhr.open("POST", "account-deleteAllposts");
         xhr.send();
       } else {
         alert("No posts were deleted!");

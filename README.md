@@ -97,12 +97,13 @@ sudo docker run -d --name=qdueflask-app -e db_username=flasktodoAdmin -e db_pass
 | `-p 7001:80` | WebUI |  |
 
 ## TODO list
--[x] sqlite to MongoDB or PostgreSQL 
--[x] Point the root to app path
--[ ] password change
--[ ] add logging
--[ ] export todo feature
--[ ] reposition the select color button
--[ ] Qdue image built with print statement to check
--[ ] Add validation for everything
--[ ] Add privacy so that no one can see my notes
+- [x] sqlite to MongoDB or PostgreSQL 
+- [x] Point the root to app path
+- [x] password change
+- [] add logging
+- [] notes layout with flexbox
+- [] export todo feature
+- [] reposition the select color button
+- [] Qdue image built with print statement to check
+- [] Add validation for everything
+- [] Add privacy so that no one can see my notes

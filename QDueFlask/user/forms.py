@@ -2,6 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, Length, EqualTo, ValidationError
 from QDueFlask.models import User
+from QDueFlask import bcrypt
 from flask_login import current_user
 
 
@@ -24,7 +25,7 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Login')
 
 class UpdateAccountForm(FlaskForm):
-    username = StringField('Username',validators=[DataRequired(), Length(min=3, max=20)])
+    username = StringField('Username')
     submit = SubmitField('Update')
 
     def validate_username(self,username):
@@ -37,10 +38,12 @@ class UpdateAccountForm(FlaskForm):
             raise ValidationError('Username can not be same as before')
 
 class UpdateAccountPasswordForm(FlaskForm):
-    CurrentPassword = StringField('Current Password', validators=[DataRequired()])
-    NewPassword = StringField('New Password', validators=[DataRequired()])
-    ConfirmPassword = StringField('Confirm Password', validators=[DataRequired()])
+    CurrentPassword = PasswordField('Current Password')
+    NewPassword = PasswordField('New Password')
+    ConfirmPassword = PasswordField('Confirm Password')
     PasswordSubmit = SubmitField('Update Password')
+
+    # TODO add view password eye button
 
 class DeleteAllPostsForm(FlaskForm):
     DeleteAllPosts = SubmitField('Delete all posts')

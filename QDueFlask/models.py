@@ -30,4 +30,4 @@ class User(db.Model, UserMixin):
 
 
     def __repr__(self) -> str:
-        return f"{self.username} - {self.image_file}"
+        return f"{self.username}"
