@@ -2,3 +2,7 @@
 .git
 .gitignore
 instance
+__pycache__
+venv
+instance
+log

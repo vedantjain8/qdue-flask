@@ -2,12 +2,14 @@ from flask import Blueprint,render_template, abort, request, jsonify, url_for, r
 from QDueFlask.models import User
 from QDueFlask import db
 from flask_login import  login_required, current_user
+from QDueFlask import app_logger
 
 admin = Blueprint("admin", __name__, url_prefix="/admin")
 
 @admin.route("/")
 @login_required
 def AdminfrontPage():
+    app_logger.info('Request received: %s %s by UserID: %s', request.method, request.url, current_user.id)
     if User.query.filter_by(username = current_user.username).first().admin:
         return render_template("admin/startpage.html", users= User.query.all())
     else:
@@ -16,6 +18,7 @@ def AdminfrontPage():
 @admin.route('/changeAdmin', methods=['POST'])
 @login_required
 def update_boolean():
+    app_logger.info('Request received: %s %s by UserID: %s', request.method, request.url, current_user.id)
     if request.method == 'POST' and User.query.filter_by(username = current_user.username).first().admin:
         data = request.get_json()
         value = data['value']
@@ -29,6 +32,7 @@ def update_boolean():
 @admin.route("/deleteUser", methods=['POST'])
 @login_required
 def deleteUser():
+    app_logger.info('Request received: %s %s by UserID: %s', request.method, request.url, current_user.id)
     if request.method == "POST" and User.query.filter_by(username = current_user.username).first().admin:
         data = request.get_json()
         username = data['username']

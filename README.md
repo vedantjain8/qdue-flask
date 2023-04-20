@@ -92,7 +92,9 @@ sudo docker run -d --name=qdueflask-app -e db_username=flasktodoAdmin -e db_pass
 | `-e db_host` | (Optional) Database ip address or hostname | <center>`127.0.0.1`</center> |
 | `-e db_port` | (Optional) Database port | |
 | `-e db_database` | (Optional) Database name | |
-| `-e TZ ` | Time zone name like  | <center>UTC time zone</center> |
+| `-e TZ="Europe/London" ` | (Optional) Time zone name like  | <center>UTC time zone</center> |
+| `-e logSize=3221225472 ` | (Optional) In bytes, changes the log file when this limit is reached  | <center>`3221225472`</center> ~3GB |
+| `-e logBackup=5 ` | (Optional) Log file backup count, will delete old backup file to create space for new file  | <center>5</center> |
 | `-e GUNICORN_WORKERS=2` | The number of worker processes. This number should generally be between 2-4 workers per core in the server | <center>`4`</center> |
 | `-p 7001:80` | WebUI |  |
 
@@ -100,10 +102,9 @@ sudo docker run -d --name=qdueflask-app -e db_username=flasktodoAdmin -e db_pass
 - [x] sqlite to MongoDB or PostgreSQL 
 - [x] Point the root to app path
 - [x] password change
-- [] add logging
-- [] notes layout with flexbox
-- [] export todo feature
-- [] reposition the select color button
-- [] Qdue image built with print statement to check
-- [] Add validation for everything
-- [] Add privacy so that no one can see my notes
+- [x] add url route logging
+- [ ] notes layout with flexbox
+- [ ] export & import TODOs
+- [ ] reposition the select color button
+- [ ] Add validation for everything
+- [ ] Add privacy so that no one can see my notes

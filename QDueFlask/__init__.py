@@ -1,17 +1,11 @@
+import logging
+from logging.handlers import RotatingFileHandler
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 import os, pytz
-
-# from QDueFlask.ngrokRun import run_with_ngrok
-
-# ========================== LOGGING ====================
-# import logging
-# from flask import current_app
-# current_app.logger.info('info level log')
-# logging.basicConfig(filename='record.log', level=logging.DEBUG, format=f'%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s')
-# ========================== LOGGING ====================
+from datetime import datetime
 
 if os.environ.get("db_username") and os.environ.get("db_password") and os.environ.get("db_host") and os.environ.get("db_database"):
     username = os.environ.get("db_username")
@@ -24,8 +18,8 @@ if os.environ.get("db_username") and os.environ.get("db_password") and os.enviro
 else: 
     dbPath= "sqlite:///todo.db"
 
-if os.environ.get("TZ"):
-    customTZ = pytz.timezone(os.environ.get("TZ"))
+if os.environ.get("TZ", "Asia/Kolkata"):
+    customTZ = pytz.timezone(os.environ.get("TZ", "Asia/Kolkata"))
 else:
     customTZ = pytz.timezone('UTC')
 
@@ -33,9 +27,25 @@ app = Flask(__name__,static_url_path='/QDueFlask', static_folder='static')
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "default_secret_key")
 app.config['SQLALCHEMY_DATABASE_URI'] = dbPath
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['TIMEZONE'] = customTZ
 
-# run_with_ngrok(app)
+# logginng
+try:
+    os.mkdir('log')
+except Exception as e:
+    print(e)
+    
+app_logger = logging.getLogger(__name__)
+log_filename = os.path.join(os.path.dirname(os.path.abspath(os.path.dirname(__file__))), r"log\app.log")
+log_formatter = logging.Formatter(f"{datetime.now(customTZ).strftime('%d-%m-%Y %I:%M:%S %p')} %(levelname)s %(name)s %(threadName)s : %(message)s")
+file_handler = RotatingFileHandler(log_filename, maxBytes=int(os.environ.get("logSize", 3221225472)) , backupCount=int(os.environ.get("logSize", 5)))
+file_handler.setFormatter(log_formatter)
+app_logger.addHandler(file_handler)
+app_logger.setLevel(logging.INFO)
+
+stream_handler = logging.StreamHandler()
+stream_handler.setFormatter(log_formatter)
+app_logger.addHandler(stream_handler)
+# end logging
 
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
@@ -58,6 +68,13 @@ app.register_blueprint(errors, url_prefix='/QDueFlask')
 app.register_blueprint(apis, url_prefix='/QDueFlask/api')
 app.register_blueprint(admin, url_prefix='/QDueFlask/admin')
 app.register_blueprint(main, url_prefix='/QDueFlask')
+
+users.logger = app_logger
+posts.logger = app_logger
+errors.logger = app_logger
+apis.logger = app_logger
+admin.logger = app_logger
+main.logger = app_logger
 
 app.app_context().push()
 db.create_all()

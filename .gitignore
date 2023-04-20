@@ -1,6 +1,5 @@
 __pycache__
 temp.*
 venv
-record.log
 instance
-QDueFlask/ngrokRun.py
+log

@@ -4,11 +4,13 @@ from QDueFlask.models import User, Todo
 from QDueFlask.user.forms import RegistrationForm, LoginForm, UpdateAccountForm, DeleteAllPostsForm, UpdateAccountPasswordForm
 from flask_login import login_user, current_user, logout_user, login_required
 from wtforms.validators import ValidationError
+from QDueFlask import app_logger
 
 users = Blueprint("users", __name__)
 
 @users.route("/register", methods=['GET','POST'])
 def register():
+    app_logger.info('Request received: %s %s', request.method, request.url)
     if current_user.is_authenticated:
         return redirect(url_for("posts.insert"))
     form = RegistrationForm()
@@ -23,6 +25,7 @@ def register():
 
 @users.route("/login", methods=['GET','POST'])
 def login():
+    app_logger.info('Request received: %s %s', request.method, request.url)
     if current_user.is_authenticated:
         return redirect(url_for("posts.insert"))
     form = LoginForm()
@@ -41,6 +44,7 @@ def login():
  
 @users.route("/logout")
 def logout():
+    app_logger.info('Request received: %s %s', request.method, request.url)
     logout_user()
     flash(f"Logout was Successfull.", "success")
     return redirect(url_for("posts.insert"))
@@ -48,6 +52,7 @@ def logout():
 @users.route("/account", methods=['GET','POST'])
 @login_required
 def account():
+    app_logger.info('Request received: %s %s by UserID: %s', request.method, request.url, current_user.id)
     user = User.query.filter_by(username=current_user.username).first()
     form= UpdateAccountForm()
     deletePostsr = DeleteAllPostsForm()
@@ -92,6 +97,7 @@ def account():
 @users.route("/account-deleteAllposts", methods=['GET','POST'])
 @login_required
 def account_deleteAllPosts():
+    app_logger.info('Request received: %s %s by UserID: %s', request.method, request.url, current_user.id)
     if request.method == "GET":
         return redirect(url_for("posts.insert"))
     while True:

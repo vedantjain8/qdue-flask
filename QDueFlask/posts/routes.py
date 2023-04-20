@@ -2,6 +2,7 @@ from flask import render_template,request,redirect, url_for,Blueprint, abort
 from QDueFlask import db, customTZ
 from QDueFlask.models import Todo
 from flask_login import current_user, login_required
+from QDueFlask import app_logger
 
 from datetime import datetime
 
@@ -10,6 +11,7 @@ posts = Blueprint("posts", __name__)
 @posts.route('/', methods=['GET','POST'])
 @login_required
 def insert():
+    app_logger.info('Request received: %s %s by UserID: %s', request.method, request.url, current_user.id)
     if request.method == 'POST':
         title = str(request.form["title"]).strip()
         desc= str(request.form["desc"]).replace("  ", " ")
@@ -18,11 +20,12 @@ def insert():
         db.session.add(todo)
         db.session.commit()
         return redirect(url_for("posts.insert"))
-    return render_template("insert.html", posts = Todo.query.filter_by(user_id=current_user.id).order_by(Todo.date_created).all())
+    return render_template("insert.html", posts = Todo.query.filter_by(user_id=current_user.id).order_by(Todo.date_created.desc()).all())
 
 @posts.route("/delete/<int:id>")
 @login_required
 def delete(id):
+    app_logger.info('Request received: %s %s by UserID: %s', request.method, request.url, current_user.id)
     if current_user.id == (Todo.query.filter_by(id=id).first()).user_id :
         db.session.delete(Todo.query.filter_by(id=id).first())
         db.session.commit()
@@ -33,6 +36,7 @@ def delete(id):
 @posts.route("/update/<int:id>" , methods=['GET','POST'])
 @login_required
 def update(id):
+    app_logger.info('Request received: %s %s by UserID: %s', request.method, request.url, current_user.id)
     if current_user.id == (Todo.query.filter_by(id=id).first()).user_id :
         if request.method == "POST":
             todo = Todo.query.filter_by(id=id).first()
@@ -49,6 +53,7 @@ def update(id):
 @posts.route("/update-color/<int:id>", methods=["POST"])
 @login_required
 def changeColor(id):
+    app_logger.info('Request received: %s %s by UserID: %s', request.method, request.url, current_user.id)
     color = request.json['color']
     todo = Todo.query.filter_by(id=id).first()
     todo.backcolor = color
@@ -59,6 +64,7 @@ def changeColor(id):
 @posts.route("/pin/<int:id>" , methods=['GET','POST'])
 @login_required
 def pinned(id):
+    app_logger.info('Request received: %s %s by UserID: %s', request.method, request.url, current_user.id)
     if current_user.id == (Todo.query.filter_by(id=id).first()).user_id :
         todo = Todo.query.filter_by(id=id).first()
         if todo.pinned == 0:
