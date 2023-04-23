@@ -1,3 +1,4 @@
+# https://github.com/vedantjain8/qdue-flask
 version: '3.9'
 services:
     db:
@@ -22,7 +23,10 @@ services:
             - db_password=flasktodoAdmin
             - SECRET_KEY=my_secret_key
             - GUNICORN_WORKERS=2
+        volumes:
+            - 'qdueflask-data:/app' #optional
         container_name: qdueflask-app
         restart: unless-stopped
 volumes:
   qdueflask-db-data:
+  qdueflask-data: #only if you add volume in QDueFlask-app

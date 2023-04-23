@@ -2,7 +2,7 @@
 <div class="container-fluid" style="margin-top: 10px">
   <form action="{{ post.id }}" method="post">
     <div class="mb-3">
-      <label for="title" class="form-label">TODO Title</label>
+      <label for="title" class="form-label"><b>TODO Title: </b></label>
       <input
         type="text"
         class="form-control"
@@ -13,20 +13,25 @@
       />
     </div>
     <div class="mb-3">
-      <label for="desc" class="form-label">TODO Description</label>
+      <label for="desc" class="form-label"><b>TODO Description: </b></label>
       <textarea
         type="text"
         class="form-control"
         aria-label="With textarea"
         name="desc"
         id="desc"
+        style="min-height: 300px;"
       >{{ post.description }}</textarea>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
 
   <!-- color picker -->
-  <input id="colorColor" type="color" value="{{ post.backcolor }}" />
+  <div style="display: flex; margin-top: 20px;">
+    <b style="margin-right: 10px;">Color: </b>
+    <input id="colorColor" type="color" value="{{ post.backcolor }}" />
+  </div>
+  
   <script>
     const colorInput = document.getElementById("colorColor");
     colorInput.addEventListener("change", sendColorToServer);

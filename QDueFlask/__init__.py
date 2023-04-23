@@ -18,8 +18,8 @@ if os.environ.get("db_username") and os.environ.get("db_password") and os.enviro
 else: 
     dbPath= "sqlite:///todo.db"
 
-if os.environ.get("TZ", "Asia/Kolkata"):
-    customTZ = pytz.timezone(os.environ.get("TZ", "Asia/Kolkata"))
+if os.environ.get("TZ"):
+    customTZ = pytz.timezone(os.environ.get("TZ"))
 else:
     customTZ = pytz.timezone('UTC')
 
