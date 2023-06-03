@@ -21,7 +21,15 @@ class Todo(db.Model):
     user_id = db.Column(db.Integer(), db.ForeignKey('user.id'), nullable = False)
 
     def __repr__(self) -> str:
-        return f"{self.title}><:SPLITFROMHERE:><{self.description}"
+        exportDict={'id': self.id,
+            'Title': self.title,
+            'Description': self.description,
+            'date_created': self.date_created,
+            'date_updated': self.date_updated,
+            'pinned': self.pinned,
+            'backcolor': self.backcolor
+        }
+        return f"{exportDict}"
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer(), primary_key=True)

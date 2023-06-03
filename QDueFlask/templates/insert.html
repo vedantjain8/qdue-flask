@@ -49,11 +49,12 @@
   <!-- else -->
   {% else %}
   <!-- pinned posts -->
+  
   <div id="pinnedDIV">
     <h1 id="pinnedpostTitle" class="text-center d-none"><u>Pinned Posts</u></h1>
-    <div class="row row-cols-4 row-fluid" id="PinnedRow">
+    <section class='FlexContainer' id="PinnedContainer">  
       {% for post in posts if post.pinned == 1%}
-      <div class="col" id="{{ post.id }}">
+      <div id="PinnedContainerChild">
         <div class="card" style="background-color: {{ post.backcolor }};">
           <div class="card-header">
             <span>{{ post.title }}</span>
@@ -107,69 +108,69 @@
         <br />
       </div>
       {% endfor %}
-    </div>
+  </section>
     <hr class="border border-primary" />
   </div>
   <br />
 
   <!-- unpinned posts -->
-  <div class="row row-cols-4 row-fluid">
-    {% for post in posts if post.pinned == 0%}
-    <div class="col">
-      <div class="card" style="background-color: {{ post.backcolor }};">
-        <div class="card-header">
-          <span>{{ post.title }}</span>
-          <span>
-            <div class="hoverable-element" style="float: right">
-              &nbsp;
-              <a
-                id="hidden-pinBtn"
-                class="hidden-button text-end"
-                href="pin/{{ post.id }}"
-                method="post"
-              >
-                <span
-                  class="hidden-button material-symbols-outlined"
-                  style="
-                    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0,
-                      'opsz' 48;
-                  "
+  <section class='FlexContainer'>  
+      {% for post in posts if post.pinned == 0%}
+      <div>
+        <div class="card" style="background-color: {{ post.backcolor }};">
+          <div class="card-header">
+            <span>{{ post.title }}</span>
+            <span>
+              <div class="hoverable-element" style="float: right">
+                &nbsp;
+                <a
+                  id="hidden-pinBtn"
+                  class="hidden-button text-end"
+                  href="pin/{{ post.id }}"
+                  method="post"
                 >
-                  push_pin
-                </span>
-              </a>
-            </div>
-          </span>
-        </div>
-        <div class="card-body">
-          <p class="card-text">{{ post.description }}</p>
-          <a href="update/{{ post.id }}" class="btn btn-primary">Edit</a>
-        </div>
-        <div class="card-footer text-muted" name="date_updated">
-          <span>{{ post.date_updated }}</span>
-          <a
-            id="hidden-pinBtn"
-            class="text-end"
-            href="delete/{{ post.id }}"
-            method="post"
-          >
-            <span
-              style="float: right; padding-left: 40px"
-              class="material-symbols-outlined"
-              style="
-                font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0,
-                  'opsz' 48;
-              "
+                  <span
+                    class="hidden-button material-symbols-outlined"
+                    style="
+                      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0,
+                        'opsz' 48;
+                    "
+                  >
+                    push_pin
+                  </span>
+                </a>
+              </div>
+            </span>
+          </div>
+          <div class="card-body">
+            <p class="card-text">{{ post.description }}</p>
+            <a href="update/{{ post.id }}" class="btn btn-primary">Edit</a>
+          </div>
+          <div class="card-footer text-muted" name="date_updated">
+            <span>{{ post.date_updated }}</span>
+            <a
+              id="hidden-pinBtn"
+              class="text-end"
+              href="delete/{{ post.id }}"
+              method="post"
             >
-              delete
-            </span></a
-          >
+              <span
+                style="float: right; padding-left: 40px"
+                class="material-symbols-outlined"
+                style="
+                  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0,
+                    'opsz' 48;
+                "
+              >
+                delete
+              </span></a
+            >
+          </div>
         </div>
+        <br />
       </div>
-      <br />
-    </div>
-    {% endfor %}
-  </div>
+      {% endfor %}
+  </section>
   {% endif %}
 </div>
 
@@ -197,8 +198,8 @@
 </script>
 
 <script type="text/javascript">
-  var parentDiv = document.getElementById("PinnedRow");
-  var childDiv = document.getElementsByClassName("col")[0];
+  var parentDiv = document.getElementById("PinnedContainer");
+  var childDiv = document.getElementById("PinnedContainerChild");
   var pinnedDIV = document.getElementById("pinnedDIV");
   var pinnedpostTitle = document.getElementById("pinnedpostTitle");
   if (parentDiv.contains(childDiv)) {

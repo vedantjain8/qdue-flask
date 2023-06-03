@@ -24,7 +24,7 @@ else:
     customTZ = pytz.timezone('UTC')
 
 app = Flask(__name__,static_url_path='/QDueFlask', static_folder='static')
-app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "default_secret_key")
+app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", os.urandom(24))
 app.config['SQLALCHEMY_DATABASE_URI'] = dbPath
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
