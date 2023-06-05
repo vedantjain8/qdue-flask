@@ -1,5 +1,4 @@
-{% extends "layout_with_side_pannel.html" %}{% block
-HtmlbodyContentWithSidePannel %}
+{% extends "layout.html" %}{% block HtmlbodyContent %}
 
 <!-- profile picture -->
 <div class="media-middle">
@@ -89,14 +88,14 @@ HtmlbodyContentWithSidePannel %}
 
   </fieldset>
   <div class="form-group">
-    {{ passwordForm.PasswordSubmit(class="btn btn-outline-info", id="button1") }}
+    {{ passwordForm.PasswordSubmit(class="btn btn-outline-info", id="button2") }}
   </div>
 </form>
 <br />
 
 <!-- api key -->
 <div class="api-key-container">
-  <p>
+  <label>
     API Key: <code id="api-key">{{ api_key }}</code
     ><button
       style="margin-left: 30px"
@@ -105,8 +104,9 @@ HtmlbodyContentWithSidePannel %}
     >
       Copy
     </button>
-  </p>
+  </label>
 </div>
+<br>
 
 <script>
   function copyAPIKey() {
@@ -121,6 +121,7 @@ HtmlbodyContentWithSidePannel %}
   {{ deletePostsr.DeleteAllPosts(class="btn btn-outline-danger",
   id="deletePostAllBtn") }}
 </div>
+<br />
 
 <!-- delete all posts js script -->
 <script>
@@ -141,4 +142,5 @@ HtmlbodyContentWithSidePannel %}
       }
     });
 </script>
-{% endblock HtmlbodyContentWithSidePannel%}
+
+{% endblock HtmlbodyContent %}

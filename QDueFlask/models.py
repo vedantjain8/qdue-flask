@@ -17,7 +17,6 @@ class Todo(db.Model):
     date_created = db.Column(db.String(22), default= getCurrentTime)
     date_updated = db.Column(db.String(22), default= getCurrentTime)
     pinned = db.Column(db.Integer(),nullable= False, default= 0)
-    backcolor = db.Column(db.String(),nullable= False, default= "#ffffff")
     user_id = db.Column(db.Integer(), db.ForeignKey('user.id'), nullable = False)
 
     def __repr__(self) -> str:
@@ -27,7 +26,6 @@ class Todo(db.Model):
             'date_created': self.date_created,
             'date_updated': self.date_updated,
             'pinned': self.pinned,
-            'backcolor': self.backcolor
         }
         return f"{exportDict}"
 

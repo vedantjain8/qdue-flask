@@ -3,9 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
+    <!-- <meta http-equiv="refresh" content="5" > -->
+        
     <!-- favicon -->
-    <link rel="website icon" type="ico" href="{{ url_for('static', filename='media/favicon.ico') }}">
+    <link rel="icon" type="ico" href="{{ url_for('static', filename='media/favicon.ico') }}">
+
+    <!-- custom css -->
+    <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/style.css') }}"
+    />
 
     <!-- bootstrap -->
     <link
@@ -27,14 +34,21 @@
     {% else %}
     <title>QDue-flask</title>
     {% endif %}
+
+    <!-- css for theme changing-->
+    <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/themeChange.css') }}"
+    />
+
   </head>
-  <body>
+  <body class="dark-theme">
     <!-- body tag -->
 
     <!-- navigation bar -->
-    <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+    <nav class="navbar navbar-expand-lg">
       <div class="container-fluid">
-        <a class="navbar-brand" href="{{ url_for('posts.insert')}}">QDue-flask</a>
+        <a class="navbar-brand nav-link" href="{{ url_for('posts.insert')}}">QDue-flask</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -50,7 +64,7 @@
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
               <a
-                class="nav-link active"
+                class="nav-link"
                 aria-current="page"
                 href="{{ url_for('posts.insert')}}"
                 >App</a
@@ -58,7 +72,7 @@
             </li>
             <li class="nav-item">
               <a
-                class="nav-link active"
+                class="nav-link"
                 aria-current="page"
                 href="{{ url_for('main.about')}}"
                 >About</a
@@ -66,7 +80,7 @@
             </li>
             <li class="nav-item">
               <a
-                class="nav-link active"
+                class="nav-link"
                 aria-current="page"
                 href="{{ url_for('main.docs')}}"
                 >Docs</a
@@ -76,7 +90,7 @@
           <div class="navbar-nav">
             {% if current_user.admin %}
             <a
-            class="nav-item nav-link active"
+            class="nav-item nav-link "
               href="{{ url_for('admin.AdminfrontPage') }}"
               >Admin</a
             >
@@ -84,33 +98,42 @@
             
             {% if current_user.is_authenticated %}
             <a
-              class="nav-item nav-link active"
+              class="nav-item nav-link"
               href="{{ url_for('users.account') }}"
               >Account</a
             >
             <a
-              class="nav-item nav-link active"
+              class="nav-item nav-link"
               href="{{ url_for('users.logout') }}"
               >Logout</a
             >
 
             {% else %}
             <a
-              class="nav-item nav-link active"
+              class="nav-item nav-link"
               href="{{ url_for('users.login') }}"
               >Login</a
             >
             <a
-              class="nav-item nav-link active"
+              class="nav-item nav-link"
               href="{{ url_for('users.register') }}"
               >Register</a
             >
-
             {% endif %}
+
+            <!-- theme switcher -->
+            <div class="btn-group">
+              <button class="theme-btn theme-btn-mobile dark" id="themeToggleBtn">
+                <ion-icon id="themeIcon" name="sunny" class="sun"></ion-icon>
+                <ion-icon id="themeIconAlt" name="moon" class="moon"></ion-icon>
+              </button>
+            </div>
+            
+            <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+            <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+            <!-- theme switcher -->
+
           </div>
-          <span class="navbar-text">
-            <!-- github logo -->
-          </span>
         </div>
       </div>
     </nav>
@@ -122,7 +145,9 @@
     {% endfor %} {% endif %} {% endwith %}
 
     <!-- content -->
+    <div class="container-fluid" style="margin-top: 10px">
     {% block HtmlbodyContent %}{% endblock %}
+  </div>
 
     <!-- script for bootstarp -->
     <script
@@ -130,5 +155,8 @@
       integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
       crossorigin="anonymous"
     ></script>
+
+    <!-- theme swticher -->
+    <script  src="{{ url_for('static', filename='js/themeChange.js') }}"></script>
   </body>
 </html>

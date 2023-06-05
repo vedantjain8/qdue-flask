@@ -1,17 +1,15 @@
-{% extends "layout_with_side_pannel.html" %}{% block
-HtmlbodyContentWithSidePannel %}
+{% extends "layout.html" %}{% block HtmlbodyContent %}
 
 <h1>How to use api</h1>
-<p>
+<label>
   At the end of the url add /api/?api=&ltYOUR_API_KEY&gt like
   <a id= "url" href=""></a
   >
-  This will return all your notes, which you can use in your projects or
-  something else
-</p>
+  This will return all your notes.
+</label>
 
 <script>
   document.getElementById("url").innerHTML = window.location.href.split("/docs")[0] + "/api/?api=YOUR_API_KEY";
   document.getElementById("url").href = window.location.href.split("/docs")[0]+ "/api/?api=YOUR_API_KEY";
 </script>
-{% endblock HtmlbodyContentWithSidePannel%}
+{% endblock HtmlbodyContent%}

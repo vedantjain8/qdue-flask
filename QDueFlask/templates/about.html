@@ -1,7 +1,6 @@
-{% extends "layout_with_side_pannel.html" %}{% block
-HtmlbodyContentWithSidePannel %}
+{% extends "layout.html" %}{% block HtmlbodyContent %}
 <h1>About QDue-flask</h1>
-<p>
+<label>
   QDue-Flask is a todo application built using the Flask web framework in Python. The application features a RESTful API system that allows users to interact with the app programmatically. The API system includes endpoints for creating, updating, and deleting todo items, as well as for retrieving all the todo items for a specific user.
 
   The application also has a login system that allows users to securely create an account, log in, and log out. User passwords are hashed using the bcrypt package before being stored in the database to ensure their security.
@@ -9,11 +8,10 @@ HtmlbodyContentWithSidePannel %}
   QDue-Flask allows users to create, edit, and delete todo items, which are organized by priority and due date. The app uses a SQLite database to store user information and todo items. Users can view their todo items on the app's dashboard, which displays the items in a list format with due dates and priorities.
   
   Overall, QDue-Flask is a simple and effective todo app that provides users with a convenient way to manage their daily tasks.
-</p>
-<p>
+</label>
+<label>
   This was created as a personal project by
   <a href="http://www.github.com/vedantjain8?ref=QDueFlask">Vedant Jain</a>
-</p>
-<p>Thank you</p>
-<p>Version 0.1</p>
-{% endblock HtmlbodyContentWithSidePannel%}
+</label>
+<label>Thank you</label>
+{% endblock HtmlbodyContent%}

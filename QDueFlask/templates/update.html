@@ -1,4 +1,4 @@
-{% extends "layout_with_side_pannel.html" %}{% block HtmlbodyContentWithSidePannel %}
+{% extends "layout.html" %}{% block HtmlbodyContent %}
 <div class="container-fluid" style="margin-top: 10px">
   <form action="{{ post.id }}" method="post">
     <div class="mb-3">
@@ -23,45 +23,8 @@
         style="min-height: 300px;"
       >{{ post.description }}</textarea>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn submitBtn">Submit</button>
   </form>
 
-  <!-- color picker -->
-  <div style="display: flex; margin-top: 20px;">
-    <b style="margin-right: 10px;">Color: </b>
-    <input id="colorColor" type="color" value="{{ post.backcolor }}" />
-  </div>
-  
-  <script>
-    const colorInput = document.getElementById("colorColor");
-    colorInput.addEventListener("change", sendColorToServer);
-    const opacity = 0.9;
-    
-    function sendColorToServer() {
-      const color = colorInput.value;
-      fetch("/QDueFlask/update-color/{{ post.id }}", {
-        method: "POST",
-        body: JSON.stringify({ color: color }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-      .then((res) => {
-          document.body.style.background = `rgba(${toRGB(colorInput.value).slice(4, -1)}, ${opacity})`;
-          consol.log(`rgba(${toRGB(colorInput.value).slice(4, -1)}, ${1})`);
-          // handle the response here
-        })
-        .catch((err) => {
-          // handle the error here
-        });
-      }
-      
-      const toRGB = (color) => {
-        const { style } = new Option();
-        style.color = color;
-        return style.color;
-      };
-      document.body.style.background = `rgba(${toRGB(colorInput.value).slice(4, -1)}, ${opacity})`;
-  </script>
 </div>
-{% endblock HtmlbodyContentWithSidePannel%}
+{% endblock HtmlbodyContent%}

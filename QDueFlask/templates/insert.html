@@ -1,11 +1,5 @@
 {% extends "layout.html" %}{% block HtmlbodyContent %}
-<!-- custom css -->
-<link
-  rel="stylesheet"
-  href="{{ url_for('static', filename='css/style.css') }}"
-/>
 
-<div class="container-fluid" style="margin-top: 10px">
   <form
     action="/QDueFlask/"
     method="post"
@@ -34,13 +28,13 @@
         style="min-height: 200px;"
       ></textarea>
     </div>
-    <button type="submit" class="btn btn-primary">Add</button>
+    <button type="submit" class="btn submitBtn">Add</button>
   </form>
   <br />
 
   <!-- table -->
   {% if posts|length==0 %}
-  <p class="text-center">There are no records</p>
+  <legend class="text-center">There are no records</legend>
   <img
     class="img-fluid rounded mx-auto d-block"
     src="https://media.tenor.com/qW6rH97R6eEAAAAC/crazy-empty.gif"
@@ -51,13 +45,13 @@
   <!-- pinned posts -->
   
   <div id="pinnedDIV">
-    <h1 id="pinnedpostTitle" class="text-center d-none"><u>Pinned Posts</u></h1>
+    <h1 id="pinnedPostHeadTitle" class="text-center d-none"><u>Pinned Posts</u></h1>
     <section class='FlexContainer' id="PinnedContainer">  
       {% for post in posts if post.pinned == 1%}
       <div id="PinnedContainerChild">
-        <div class="card" style="background-color: {{ post.backcolor }};">
+        <div class="card">
           <div class="card-header">
-            <span>{{ post.title }}</span>
+            <span class="postTitle">{{ post.title }}</span>
             <span>
               <div class="hoverable-element" style="float: right">
                 &nbsp;
@@ -81,11 +75,11 @@
             </span>
           </div>
           <div class="card-body">
-            <p class="card-text">{{ post.description }}</p>
+            <pre class="card-text postDescription">{{ post.description }}</pre>
             <a href="update/{{ post.id }}" class="btn btn-primary">Edit</a>
           </div>
           <div class="card-footer text-muted" name="date_updated">
-            <span>{{ post.date_updated }}</span>
+            <span id="dateText">{{ post.date_updated }}</span>
             <a
               id="hidden-pinBtn"
               class="text-end"
@@ -117,9 +111,9 @@
   <section class='FlexContainer'>  
       {% for post in posts if post.pinned == 0%}
       <div>
-        <div class="card" style="background-color: {{ post.backcolor }};">
+        <div class="card">
           <div class="card-header">
-            <span>{{ post.title }}</span>
+            <span class="postTitle">{{ post.title }}</span>
             <span>
               <div class="hoverable-element" style="float: right">
                 &nbsp;
@@ -143,7 +137,7 @@
             </span>
           </div>
           <div class="card-body">
-            <p class="card-text">{{ post.description }}</p>
+            <pre class="card-text postDescription">{{ post.description }}</pre>
             <a href="update/{{ post.id }}" class="btn btn-primary">Edit</a>
           </div>
           <div class="card-footer text-muted" name="date_updated">
@@ -172,7 +166,7 @@
       {% endfor %}
   </section>
   {% endif %}
-</div>
+
 
 <script>
   function validateForm() {
@@ -201,7 +195,7 @@
   var parentDiv = document.getElementById("PinnedContainer");
   var childDiv = document.getElementById("PinnedContainerChild");
   var pinnedDIV = document.getElementById("pinnedDIV");
-  var pinnedpostTitle = document.getElementById("pinnedpostTitle");
+  var pinnedpostTitle = document.getElementById("pinnedPostHeadTitle");
   if (parentDiv.contains(childDiv)) {
     pinnedDIV.classList.toggle("d-block");
     pinnedpostTitle.classList.toggle("d-none");

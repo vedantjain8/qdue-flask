@@ -1,8 +1,6 @@
 .github
 .git
 .gitignore
-instance
+github
 __pycache__
 venv
-instance
-log

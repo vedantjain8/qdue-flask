@@ -64,17 +64,17 @@ Overall, QDue-Flask is a simple and effective todo app that provides users with 
 
 ### Deploy with docker compose file
 1. Download this file > [dockercompose.yml](https://github.com/vedantjain8/qdue-flask/blob/main/dockercompose.yml)
-2. Run `docker compose up`
+2. Run `docker compose up -d`
 
 ### Run with Postgresql databse
-1. `docker run --name=qdueflask-db --network=host -v qdueflask-db-data:/var/lib/postgresql/data -e POSTGRES_PASSWORD=<db password> -e POSTGRES_USER=<db username> -e POSTGRES_DB=<db database> -d postgres`
-2. `docker run -d --name=qdueflask -e db_username=<db username> -e db_password=<db password> -e db_host=<db localhost> -e db_port=<db port> -e db_database=<db database> -e SECRET_KEY="my_secret_key" -e GUNICORN_WORKERS=2 -p 7001:80 --restart=unless-stopped ghcr.io/vedantjain8/qdue-flask:latest`
+1. `docker run --name=qdueflask-db --network=host -v qdueflask-db-data:/var/lib/postgresql/data -e POSTGRES_PASSWORD=databasepassword -e POSTGRES_USER=databaseuser -e POSTGRES_DB=databasedb -d postgres`
+2. `docker run -d --name=qdueflask -e db_username=databaseuser -e db_password=databasepassword -e db_host=<db localhost> -e db_port=<db port> -e db_database=databasedb -e SECRET_KEY="my_secret_key" -e GUNICORN_WORKERS=2 -p 7001:80 --restart=unless-stopped ghcr.io/vedantjain8/qdue-flask:latest`
 
 #### Example: 
 ```
 sudo docker run --name=qdueflask-db --network=host -v qdueflask-db-data:/var/lib/postgresql/data -e POSTGRES_PASSWORD=flasktodoAdmin -e POSTGRES_USER=flasktodoAdmin -e POSTGRES_DB=flasktodoAdmin -d postgres
 
-sudo docker run -d --name=qdueflask-app -e db_username=flasktodoAdmin -e db_password=flasktodoAdmin -e db_host=192.168.29.8 -e db_database=flasktodoAdmin -e SECRET_KEY="my_secret_key" -e GUNICORN_WORKERS=2 -p 7001:80 --restart=unless-stopped ghcr.io/vedantjain8/qdue-flask:latest
+sudo docker run -d --name=qdueflask-app -e db_username=flasktodoAdmin -e db_password=flasktodoAdmin -e db_host=localhost -e db_database=flasktodoAdmin -e SECRET_KEY="my_secret_key" -e GUNICORN_WORKERS=2 -p 7001:80 --restart=unless-stopped ghcr.io/vedantjain8/qdue-flask:latest
 ```
 
 ## Configuration

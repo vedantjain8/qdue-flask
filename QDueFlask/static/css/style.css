@@ -7,15 +7,79 @@
 }
 
 .FlexContainer {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    align-items: flex-start;
-    align-content: flex-start;
-    overflow: auto;
-    flex-direction: row;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: flex-start;
+  overflow: auto;
+  flex-direction: row;
 }
 
 .FlexContainer div {
-    margin: 5px;
+  margin: 5px;
+  flex: 1 1 auto; /* Add this line to make the card fit the width */
+}
+
+button {
+  font: inherit;
+  border: none;
+  background: 0 0;
+  cursor: pointer;
+}
+
+html {
+  line-height: 1.8;
+}
+
+::-webkit-scrollbar {
+  width: 16px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 20px;
+  border: 4px solid;
+}
+
+.light-theme::-webkit-scrollbar-thumb {
+  border-color: #e5e5e5;
+}
+
+.dark-theme::-webkit-scrollbar-thumb {
+  border-color: #252e40;
+}
+
+.light-theme::-webkit-scrollbar-track {
+  background: #e5e5e5;
+}
+
+.dark-theme::-webkit-scrollbar-track {
+  background: #252e40;
+}
+
+.theme-btn-mobile {
+  background: var(--action-secondary);
+  color: var(--foreground-tertiary);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  font-size: 25px;
+}
+
+:is(.theme-btn-mobile):hover {
+  background: var(--accent);
+  color: var(--white);
+}
+
+.theme-btn-mobile ion-icon {
+  display: none;
+}
+
+.theme-btn-mobile.dark .moon,
+.theme-btn-mobile.light .sun {
+  display: block;
 }
