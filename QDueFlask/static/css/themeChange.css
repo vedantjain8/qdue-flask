@@ -50,13 +50,9 @@
     color: hsl(208, 35%, 93%);
   }
 
-  legend, #pinnedPostHeadTitle,label,p, .postTitle, .postDescription{
+  legend, #pinnedPostHeadTitle,label ,p , .postTitle, .postDescription, th, tbody, h1{
     color: var(--rtext);
   }
-
-  th, tbody, h1{
-    color: var(--text);
-  } 
 
   .submitBtn, .submitBtn:hover{
     background-color: var(--button);
@@ -68,6 +64,11 @@
     color: var(--rtext);
     border-color: var(--bordercolor);
   }
+
+  .form-control:focus {
+    background-color: var(--textarea);
+    color: var(--rtext);
+  }  
 
   .card{
     color: var(--secondary);

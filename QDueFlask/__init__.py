@@ -35,7 +35,7 @@ except Exception as e:
     print(e)
     
 app_logger = logging.getLogger(__name__)
-log_filename = os.path.join(os.path.dirname(os.path.abspath(os.path.dirname(__file__))), r"log\app.log")
+log_filename = os.path.join(os.path.dirname(os.path.abspath(os.path.dirname(__file__))), "log", "app.log")
 log_formatter = logging.Formatter(f"{datetime.now(customTZ).strftime('%d-%m-%Y %I:%M:%S %p')} %(levelname)s %(name)s %(threadName)s : %(message)s")
 file_handler = RotatingFileHandler(log_filename, maxBytes=int(os.environ.get("logSize", 3221225472)) , backupCount=int(os.environ.get("logSize", 5)))
 file_handler.setFormatter(log_formatter)

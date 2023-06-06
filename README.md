@@ -104,7 +104,8 @@ sudo docker run -d --name=qdueflask-app -e db_username=flasktodoAdmin -e db_pass
 - [x] password change
 - [x] add url route logging
 - [x] notes layout with flexbox
+- [x] Add current active session in dashboard for admin
+- [ ] fix user remember state
 - [ ] export & import TODOs
 - [ ] Add validation for everything
 - [ ] Add privacy so that no one can see my notes
-- [ ] Add current active session in dashboard for admin

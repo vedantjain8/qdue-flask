@@ -137,7 +137,7 @@
             </span>
           </div>
           <div class="card-body">
-            <pre class="card-text postDescription">{{ post.description }}</pre>
+            <pre class="card-text postDescription">{{ post.description[:180] }}</pre>
             <a href="update/{{ post.id }}" class="btn btn-primary">Edit</a>
           </div>
           <div class="card-footer text-muted" name="date_updated">

@@ -1,0 +1,26 @@
+{% extends 'layout.html' %} {% block HtmlbodyContent %}
+<!-- Add an empty div to display the active users -->
+<p id="activeUsers"></p>
+
+<!-- Include the following JavaScript code -->
+<script>
+    // Function to update the active users in the dashboard
+    function updateActiveUsers() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/QDueFlask/api/get_active_users', true);
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                var activeUsers = JSON.parse(xhr.responseText);
+                var activeUsersDiv = document.getElementById('activeUsers');
+                activeUsersDiv.textContent = "Active Users: " + activeUsers.join(", ");
+            } else {
+                console.log('Error getting active users');
+            }
+        };
+        xhr.send();
+    }
+
+    // Refresh the active users every 5 seconds
+    setInterval(updateActiveUsers, 5000);
+</script>
+{% endblock HtmlbodyContent %}

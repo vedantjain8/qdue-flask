@@ -36,7 +36,11 @@ class User(db.Model, UserMixin):
     todos = db.relationship("Todo", backref= "author", lazy=True)
     admin = db.Column(db.Boolean, nullable= False, default=False)
     api = db.Column(db.String(), nullable=False, default= str(uuid.uuid4()))
+    last_activity = db.Column(db.DateTime, default=datetime.now(customTZ))
 
+    def update_activity(self):
+        self.last_activity = datetime.now(customTZ)
+        db.session.commit()
 
     def __repr__(self) -> str:
         return f"{self.username}"
